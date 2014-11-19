@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.xyworm.superbar"
+    android:versionCode="5"
+    android:versionName="no root"
+    android:sharedUserId="android.uid.system">
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+    、	
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 在 屏幕最顶部显示addview-->
+ 	<uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW"/>
+    <uses-permission android:name="android.permission.STATUS_BAR"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />  
+    <uses-permission android:name="android.permission.INJECT_EVENTS" />
+
+    <application 
+        android:name="com.xyworm.superbar.util.MyApp"
+        android:icon="@drawable/ic_launcher" 
+        android:allowBackup="true" android:theme="@android:style/Theme.Holo.Light">
+        <activity
+            android:name="com.xyworm.superbar.ui.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.xyworm.superbar.service.VirtualKeyService"/>
+        <service
+            android:name="com.xyworm.superbar.service.GetRunningTask" />
+        <service
+            android:name="com.xyworm.superbar.service.RingGestureService"/>
+        <service 
+            android:name="com.xyworm.superbar.service.BaseSensorService"/>
+
+        <receiver android:name="com.xyworm.superbar.service.SuperbarReceiver"
+            tools:ignore="Exportedreceiver">
+            <intent-filter>
+                <action android:name="android.intent.HOME.FORBID"/>
+                <action android:name="com.xyworm.sensormouse.SHOW_CURSOR" />
+                <action android:name="com.xyworm.sensormouse.HIDE_CURSOR" />
+                <action android:name="com.xyworm.custcursor.SHOW_CURSOR" />
+                <action android:name="com.xyworm.custcursor.HIDE_CURSOR" />
+            </intent-filter>
+            <intent-filter>    
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>    
+            </intent-filter>  
+        </receiver>
+        
+    </application>
+
+</manifest>

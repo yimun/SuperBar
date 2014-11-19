@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+ 
+    <RelativeLayout
+        android:id="@+id/lay_main"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" 
+        android:background="@drawable/shape_background_assistivetouch">
+
+      		<TextView
+                android:id="@+id/btn_setting4gallery"
+                style="@style/Icon"
+                android:layout_centerInParent="true"
+                android:drawableTop="@drawable/selector_ic_apps"
+                android:text="@string/setting" />
+
+            <TextView
+                android:id="@+id/btn_back"
+                style="@style/Icon"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableTop="@drawable/selector_ic_back"
+                android:text="@string/back" />
+
+            <TextView
+                android:id="@+id/btn_home"
+                style="@style/Icon"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:drawableTop="@drawable/selector_ic_home"
+                android:text="@string/home" />
+ 
+    </RelativeLayout>
+
+</RelativeLayout>

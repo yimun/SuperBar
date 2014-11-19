@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:alpha="0.8"
+    android:background="@drawable/back_new" >
+    
+    <com.xyworm.superbar.ui.TrajectoryView
+        android:id="@+id/trajview"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent" />
+
+</RelativeLayout>
