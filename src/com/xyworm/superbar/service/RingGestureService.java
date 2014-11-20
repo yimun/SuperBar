@@ -134,27 +134,6 @@ public class RingGestureService extends BaseSensorService implements OnRingEvent
 
 	@Override
 	public void showWindows() {
-		/*Bitmap bm = Blur.backblur(this, 12);
-
-		if (bm == null)
-			Toast.makeText(this, "Ã«²£Á§äÖÈ¾Ê§°Ü", Toast.LENGTH_SHORT).show();
-		else {
-			if (isOri()) {
-				Matrix m = new Matrix();
-				m.setRotate(-90f, (float) bm.getWidth() / 2,
-						(float) bm.getHeight() / 2);
-				try {
-					bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
-							bm.getHeight(), m, true);
-
-				} catch (OutOfMemoryError ex) {
-					
-				}
-
-			}
-
-			mGestureView.setBackgroundDrawable(new BitmapDrawable(bm));
-		}*/
 		super.showWindows();
 	}
 

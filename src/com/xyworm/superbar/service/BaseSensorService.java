@@ -10,7 +10,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -18,21 +17,25 @@ import android.widget.Toast;
 import com.xyworm.superbar.input.InputCmd;
 import com.xyworm.superbar.util.MyContext;
 import com.xyworm.superbar.util.RotateUtil;
-
+/**
+ * @ClassName  BaseSensorService 
+ * @Description  传感器基类，探测用户抬头动作，控制悬浮窗
+ * @author linweizh@qq.com
+ * @date 2014-11-20
+ */
 public abstract class BaseSensorService extends Service implements
 		SensorEventListener {
 	private SensorManager mSensorManager;
 
 	private static final int HEAD_DOWN = 0;
 	private static final int HEAD_UP = 1;
-	private int mHeadState = HEAD_DOWN;
 	private static final float HEAD_BETA_THRESHOLD = 35f;
-	public static int sUserRunPattern = 1;
-	public View floatView;
-	private final String TAG = "BaseSensorService";
-
 	private static boolean isEnable = true;
+	private int mHeadState = HEAD_DOWN;
+
+	private View mFloatView;
 	private static Handler delayHandler = new Handler();
+	
 	private Runnable delayRunnable = new Runnable(){
 		public void run(){
 			hideWindows();
@@ -41,7 +44,6 @@ public abstract class BaseSensorService extends Service implements
 
 	@Override
 	public void onCreate() {
-		Log.i(TAG, "onCreate");
 		super.onCreate();
 		initSensor();
 		isEnable = true;
@@ -50,8 +52,6 @@ public abstract class BaseSensorService extends Service implements
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
-		Log.i(TAG, "onDestory");
 		super.onDestroy();
 		mSensorManager.unregisterListener(this);
 		MyContext.isServiceRunning = false;
@@ -72,7 +72,7 @@ public abstract class BaseSensorService extends Service implements
 	 * @param view
 	 */
 	public void setFloatView(View view) {
-		this.floatView = view;
+		this.mFloatView = view;
 	}
 
 	@Override
@@ -119,7 +119,9 @@ public abstract class BaseSensorService extends Service implements
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
+	/**
+	 * 初始化传感器
+	 */
 	private void initSensor() {
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		boolean success = false;
@@ -132,14 +134,14 @@ public abstract class BaseSensorService extends Service implements
 	}
 
 	public void hideWindows() {
-		if (floatView != null)
-			floatView.setVisibility(View.GONE);
+		if (mFloatView != null)
+			mFloatView.setVisibility(View.GONE);
 		this.onHeadDown();
 	}
 
 	public void showWindows() {
-		if (floatView != null) {
-			floatView.setVisibility(View.VISIBLE);
+		if (mFloatView != null) {
+			mFloatView.setVisibility(View.VISIBLE);
 			delayHideWindow(4000);
 		}
 	}
@@ -150,6 +152,9 @@ public abstract class BaseSensorService extends Service implements
 		delayHandler.postDelayed(delayRunnable, time);
 	}
 
+	/**
+	 * 注入返回键事件
+	 */
 	public void pressBack() {
 		if (MyContext.UseSystemUidToInject) {
 			new Thread() {
@@ -163,12 +168,14 @@ public abstract class BaseSensorService extends Service implements
 						new String[] { "su", "-c",
 								"input keyevent " + KeyEvent.KEYCODE_BACK });
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
+	/**
+	 * 注入Home键事件
+	 */
 	public void pressHome() {
 		if (MyContext.UseSystemUidToInject) {
 			new Thread() {
@@ -182,7 +189,6 @@ public abstract class BaseSensorService extends Service implements
 						new String[] { "su", "-c",
 								"input keyevent " + KeyEvent.KEYCODE_HOME });
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -35,7 +35,6 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		// 根据配置文件�?��带有传感器监听的service
 		super.onResume();
-		// startSevice();
 		MyContext.startDaemonSevice(this, false);
 	}
 
